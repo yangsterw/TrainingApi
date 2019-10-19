@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace TrainingApi.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -17,6 +18,8 @@ namespace TrainingApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public ActionResult<Student> GetStudent(int id)
         {
             var student = InMemoryDatabase.Students.SingleOrDefault(student => student.StudentId == id);
@@ -30,8 +33,12 @@ namespace TrainingApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public ActionResult<Student> AddStudent([FromBody]Student student)
         {
+            if (student == null) return BadRequest();
+
             student.StudentId = InMemoryDatabase.Students.Max(student => student.StudentId) + 1;
             InMemoryDatabase.Students.Add(student);
 
@@ -39,8 +46,13 @@ namespace TrainingApi.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Student> ChangeStudent([FromBody]Student studentChange)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public ActionResult ChangeStudent([FromBody]Student studentChange)
         {
+            if (studentChange == null) return BadRequest();
+
             var student = InMemoryDatabase.Students.SingleOrDefault(student => student.StudentId == studentChange.StudentId);
 
             if (student != null)
@@ -54,6 +66,8 @@ namespace TrainingApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public ActionResult DeleteStudent(int id)
         {
             var student = InMemoryDatabase.Students.SingleOrDefault(student => student.StudentId == id);

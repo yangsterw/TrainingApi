@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace TrainingApi.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
@@ -17,6 +18,8 @@ namespace TrainingApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public ActionResult<Course> GetCourse(int id)
         {
             var course = InMemoryDatabase.Courses.SingleOrDefault(course => course.CourseId == id);
@@ -30,6 +33,8 @@ namespace TrainingApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public ActionResult<Course> AddCourse([FromBody]Course course)
         {
             course.CourseId = InMemoryDatabase.Courses.Max(course => course.CourseId) + 1;
@@ -39,7 +44,10 @@ namespace TrainingApi.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Course> ChangeCourse([FromBody]Course courseChange)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public ActionResult ChangeCourse([FromBody]Course courseChange)
         {
             var course = InMemoryDatabase.Courses.SingleOrDefault(course => course.CourseId == courseChange.CourseId);
 
@@ -54,6 +62,8 @@ namespace TrainingApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public ActionResult DeleteCourse(int id)
         {
             var course = InMemoryDatabase.Courses.SingleOrDefault(course => course.CourseId == id);
