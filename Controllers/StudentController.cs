@@ -12,9 +12,9 @@ namespace TrainingApi.Controllers
     public class StudentController : ControllerBase
     {
         [HttpGet]
-        public List<Student> GetStudents()
+        public ActionResult<List<Student>> GetStudents()
         {
-            return InMemoryDatabase.Students;
+            return Ok(InMemoryDatabase.Students);
         }
 
         [HttpGet("{id}")]
