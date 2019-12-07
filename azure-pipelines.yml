@@ -29,3 +29,9 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'Training API Cluster'
+        namespace: 'default'
+        manifests: 'kubernetes/deployment.yaml'
