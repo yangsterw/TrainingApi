@@ -34,3 +34,9 @@ stages:
         kubernetesServiceConnection: 'kubernetes_yang'
         namespace: 'default'
         manifests: 'kubernetes/deployment.yaml'
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'kubernetes_yang'
+        namespace: 'default'
+        manifests: 'kubernetes/deployment.yaml'
