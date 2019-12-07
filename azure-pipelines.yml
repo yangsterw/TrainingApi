@@ -32,3 +32,5 @@ stages:
         containerRegistry: 'Docker Hub Registry'
         repository: 'oitgaden/trainingapi'
         command: 'push'
+        tags: |
+          $(tag)
