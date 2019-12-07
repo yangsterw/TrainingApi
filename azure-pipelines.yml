@@ -27,8 +27,7 @@ stages:
         repository: 'yangsterw/trainingapi'
         command: buildAndPush
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+        tags: 'v1'
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
