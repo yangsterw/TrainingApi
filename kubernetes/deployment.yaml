@@ -29,4 +29,4 @@ spec:
     spec:
       containers:
       - name: trainingapi
-        image: oitgaden/trainingapi:1.0
+        image: oitgaden/trainingapi:v3
