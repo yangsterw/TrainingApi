@@ -26,6 +26,7 @@ stages:
         repository: 'oitgaden/trainingapi'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+        tags: $(tag)
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
