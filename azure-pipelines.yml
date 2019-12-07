@@ -21,16 +21,8 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-    - task: Docker@2
       inputs:
         containerRegistry: 'Docker Hub Registry'
         repository: 'oitgaden/trainingapi'
-        command: 'push'
-        tags: |
-          $(tag)
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
