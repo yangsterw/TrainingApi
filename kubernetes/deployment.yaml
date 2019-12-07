@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: trainingapi-svc
+spec:
+  selector:
+    app: trainingapi
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: trainingapi
+  labels:
+    app: trainingapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trainingapi
+  template:
+    metadata:
+      labels:
+        app: trainingapi
+    spec:
+      containers:
+      - name: trainingapi
+        image: oitgaden/trainingapi:1.0
